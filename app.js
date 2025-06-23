@@ -1,64 +1,59 @@
-// Initialize scanner
-let scanner;
+let scanner = null;
+let cameraPermissionGranted = false;
 
-// Scan Button Click
 document.getElementById('btnScanBarcode').addEventListener('click', () => {
+    if (scanner && scanner.isScanning()) {
+        // Scanner is already active, do nothing
+        return;
+    }
+    
     const scannerContainer = document.getElementById('scanner-container');
     scannerContainer.style.display = 'block';
     
+    // Initialize scanner with back camera only
     scanner = new Html5QrcodeScanner('scanner-container', { 
         fps: 10,
-        qrbox: 250 
+        qrbox: 250,
+        rememberLastUsedCamera: false, // Always use back camera
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
     });
 
-    scanner.render((barcode) => {
-        document.getElementById('etBarcode').value = barcode;
-        scannerContainer.style.display = 'none';
-        fetchProductData(barcode);
-    });
-});
-
-// Mock Data Fetch (Replace with your SQL Server API)
-function fetchProductData(barcode) {
-    // Example response structure - replace with your actual API call
-    const mockData = {
-        supplier: "Supplier Name",
-        description: "Product Description",
-        category: "Product Category",
-        cost: "$10.00",
-        profit: "$5.00",
-        price: "$15.00",
-        quantity: "5.00"
+    // Start scanning with back camera
+    const cameraConfig = {
+        facingMode: "environment" // Force back camera
     };
 
-    // Update first company section
-    document.getElementById('tvSupplier').textContent = mockData.supplier;
-    document.getElementById('tvDescription').textContent = mockData.description;
-    document.getElementById('tvCategory').textContent = mockData.category;
-    document.getElementById('tvCost').textContent = mockData.cost;
-    document.getElementById('tvProfit').textContent = mockData.profit;
-    document.getElementById('tvPrice').textContent = mockData.price;
-    document.getElementById('tvQty').textContent = mockData.quantity;
+    scanner.render(
+        (barcode) => {
+            // Success callback
+            document.getElementById('etBarcode').value = barcode;
+            stopScanner();
+            fetchProductData(barcode);
+        },
+        (error) => {
+            // Error callback
+            console.error(error);
+        },
+        cameraConfig
+    );
+});
 
-    // Update second company section (with different mock data)
-    document.getElementById('tvSupplier2').textContent = "Second Location Data";
-    document.getElementById('tvDescription2').textContent = mockData.description;
-    document.getElementById('tvCategory2').textContent = mockData.category;
-    document.getElementById('tvCost2').textContent = "$12.00";
-    document.getElementById('tvProfit2').textContent = "$3.00";
-    document.getElementById('tvPrice2').textContent = "$15.00";
-    document.getElementById('tvQty2').textContent = "3.50";
+// Add a stop button to your scanner container in HTML
+function stopScanner() {
+    if (scanner) {
+        scanner.clear().then(() => {
+            document.getElementById('scanner-container').style.display = 'none';
+            scanner = null; // Fully reset the scanner
+        }).catch(err => {
+            console.error("Failed to clear scanner", err);
+        });
+    }
 }
 
-// Input Handling
-document.getElementById('etBarcode').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        fetchProductData(e.target.value);
-    }
-});
-
-document.getElementById('etReference').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        // Handle reference input if needed
-    }
-});
+// Add this to your HTML (inside scanner-container div)
+<div id="scanner-container" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:1000;">
+    <button onclick="stopScanner()" style="position:absolute; top:20px; right:20px; z-index:1001; background:red; color:white; border:none; padding:10px; border-radius:5px;">
+        Stop Scanning
+    </button>
+    <div id="scanner"></div>
+</div>
