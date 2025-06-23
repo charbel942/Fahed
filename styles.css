@@ -1,0 +1,145 @@
+/* Base Styles */
+body {
+    margin: 0;
+    padding: 5px;
+    background-color: #818485;
+    font-family: 'Roboto', Arial, sans-serif;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Input Rows */
+.input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    background: transparent;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+input {
+    flex: 1;
+    height: 48px;
+    margin: 0 10px;
+    padding: 0 10px;
+    font-size: 20px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 0;
+}
+
+/* Company Sections */
+.company-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.company-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.supplier, .description, .category {
+    font-size: 15px;
+    color: white;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.description {
+    font-weight: bold;
+}
+
+.category {
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Price Rows */
+.price-row {
+    display: flex;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.cost {
+    flex: 1;
+    text-align: left;
+    font-size: 15px;
+    color: white;
+}
+
+.profit {
+    flex: 1;
+    text-align: right;
+    font-size: 15px;
+    color: white;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFF00;
+    margin: 5px 0;
+}
+
+/* Quantity Row */
+.qty-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.qty-row span:first-child {
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+.qty-row span:last-child {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFFF00;
+}
+
+/* Divider Line */
+.divider {
+    height: 3px;
+    background-color: white;
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* Scanner Container (Hidden by Default) */
+#scanner-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    z-index: 1000;
+}

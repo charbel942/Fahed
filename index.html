@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Barcode Scanner PWA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Material Icons for Android-like buttons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- First Row (Barcode Input) -->
+        <div class="input-row">
+            <button id="btnScanBarcode" class="icon-btn">
+                <span class="material-icons">camera_alt</span>
+            </button>
+            <input type="text" id="etBarcode" placeholder="Enter Barcode Here">
+            <button id="btnSettings" class="icon-btn" style="visibility: hidden;">
+                <span class="material-icons">settings</span>
+            </button>
+        </div>
+
+        <!-- Second Row (Reference Input) -->
+        <div class="input-row">
+            <button class="icon-btn" style="visibility: hidden;">
+                <span class="material-icons">camera_alt</span>
+            </button>
+            <input type="text" id="etReference" placeholder="Enter Reference Here">
+            <button class="icon-btn" style="visibility: hidden;">
+                <span class="material-icons">settings</span>
+            </button>
+        </div>
+
+        <!-- First Company Section (RABIEH) -->
+        <div class="company-section">
+            <div class="company-name">RABIEH</div>
+            <div id="tvSupplier" class="supplier"></div>
+            <div id="tvDescription" class="description"></div>
+            <div id="tvCategory" class="category"></div>
+            
+            <div class="price-row">
+                <div id="tvCost" class="cost"></div>
+                <div id="tvProfit" class="profit"></div>
+            </div>
+            
+            <div id="tvPrice" class="price"></div>
+            <div class="qty-row">
+                <span>Current Qty : </span>
+                <span id="tvQty">0.00</span>
+            </div>
+        </div>
+
+        <!-- Divider Line -->
+        <div class="divider"></div>
+
+        <!-- Second Company Section (FURN EL CHEBBEK) -->
+        <div class="company-section">
+            <div class="company-name">FURN EL CHEBBEK</div>
+            <div id="tvSupplier2" class="supplier"></div>
+            <div id="tvDescription2" class="description"></div>
+            <div id="tvCategory2" class="category"></div>
+            
+            <div class="price-row">
+                <div id="tvCost2" class="cost"></div>
+                <div id="tvProfit2" class="profit"></div>
+            </div>
+            
+            <div id="tvPrice2" class="price"></div>
+            <div class="qty-row">
+                <span>Current Qty : </span>
+                <span id="tvQty2">0.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Scanner Container -->
+    <div id="scanner-container"></div>
+
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
